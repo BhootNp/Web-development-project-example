@@ -1,12 +1,12 @@
 import React from 'react'
 
 const home = () => {
-    //js block
-return (
+    // Home page component js block
+  return (
     <div>
-                     homepage this is a main landing page. 
+       Home page
     </div>
-)
+  )
 }
 
 export default home
