@@ -1,20 +1,10 @@
 const express = require('express');
 const app = express();
 
+app.use("/api/user/", require("./routes/route"));
+
 app.get('/', (req, res) => {
-    res.json('Hello World from Backend!');
-});
-
-app.get('/auth/login', (req, res) => {
-    res.json('User logged in successfully!');
-});
-
-app.get('/auth/contact', (req, res) => {
-    res.json('Nice to hear from you! How can we help?');
-});
-
-app.get('/auth/user', (req, res) => {
-    res.json('Nice to meet you, User!');
+    res.json('Welcome to the home page');
 });
 
 app.listen(3000, () => {
