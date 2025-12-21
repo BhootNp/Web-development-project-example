@@ -1,4 +1,4 @@
-const Product = require("../models/productModel.js")
+const Product = require("../models/productModel")
 
 const addProduct = async (req, res) => {
     try{
@@ -24,7 +24,5 @@ const addProduct = async (req, res) => {
     }
 };
 
-module.exports={
-    addProduct
-}
+module.exports={ addProduct }
 
