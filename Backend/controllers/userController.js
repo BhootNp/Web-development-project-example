@@ -26,5 +26,13 @@ const addUser = async (req, res) => {
     }
 };
 
+const getAllUsers = async (req, res) => {
+   const users =  User.findAll({});
+   res.json(users, message="All users retrieved successfully");
+};
 
-module.exports = { addUser };
+const getActiveUsers = async (req, res) => {
+    res.json({ message: "Get active users - to be implemented" });
+};
+
+module.exports = { addUser, getAllUsers , getActiveUsers };
