@@ -4,7 +4,6 @@ const {squelize, connectDB, sequelize} = require('./database/database');
 
 app.use(express.json());
 app.use("/api/user/", require("./routes/route"));
-app.use("/api/user/", require("./routes/productRoute"));
 
 app.get('/', (req, res) => {
     res.json('Welcome to the home page');
