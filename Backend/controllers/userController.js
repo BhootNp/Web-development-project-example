@@ -9,7 +9,9 @@ const addUser = async (req, res) => {
                 message: "All fields are required" 
             });
         }
-        const hassed = await bscrypt.hash(password, 20);
+        const isUser = await User.findAll({email: email});
+
+        const hassed = await bscrypt.hash(password, 10);
         console.log(hassed);
 
         const newUser = await User.create({ 
@@ -32,7 +34,7 @@ const addUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
    const users =  User.findAll({});
-   res.json(users, message="All users retrieved successfully");
+   res.json({users, message:"All users retrieved successfully"});
 };
 
 const getActiveUsers = async (req, res) => {
