@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const {squelize, connectDB, sequelize} = require('./database/database');
+const {connectDB, sequelize} = require('./database/database');
 
 app.use(express.json());
 app.use("/api/user/", require("./routes/route"));
