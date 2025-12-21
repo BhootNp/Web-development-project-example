@@ -10,6 +10,9 @@ app.get('/', (req, res) => {
     res.json('Welcome to the home page');
 });
 
+app.use("/api/product/",require('./routes/productRoute'))
+
+
 // app.listen(3000, () => {
 //     console.log('Server is running on http://localhost:3000');
 // });
