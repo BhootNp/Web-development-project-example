@@ -9,7 +9,13 @@ const addUser = async (req, res) => {
                 message: "All fields are required" 
             });
         }
-        const isUser = await User.findAll({email: email});
+        const isUser = await User.findOne({ where: { username } });
+       const isemail = await User.findOne({ where: { email } });
+         if (isUser || isemail) {
+                return res.status(400).json({ 
+                 message: "User already exists" 
+                });
+          }
 
         const hassed = await bscrypt.hash(password, 10);
         console.log(hassed);
