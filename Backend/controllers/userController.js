@@ -109,4 +109,28 @@ const getActiveUsers = async (req, res) => {
   res.json({ message: "Get active users - to be implemented" });
 };
 
-module.exports = { addUser, getAllUsers, getActiveUsers, getUserById , updateUser};
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const user = await User.findByPk(id);
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    await user.destroy();
+
+    return res.status(200).json({
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error deleting user",
+      error: error.message,
+    });
+  }
+};
+
+module.exports = { addUser, getAllUsers, getActiveUsers, getUserById , updateUser, deleteUser};
