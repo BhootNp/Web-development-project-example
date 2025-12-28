@@ -1,6 +1,8 @@
 const express = require('express');
+require('dotenv').config();
 const app = express();
 const {connectDB, sequelize} = require('./database/database');
+
 
 app.use(express.json());
 app.use("/api/user/", require("./routes/route"));

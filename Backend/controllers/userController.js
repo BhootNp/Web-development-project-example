@@ -1,6 +1,6 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
-
+const jwt = require("jsonwebtoken");
 
 const addUser = async (req, res) => {
   try {
@@ -160,14 +160,23 @@ const loginUser = async (req, res) => {
       });
     }
 
+    const token = jwt.sign(
+      {
+        id: user.id,
+        role: user.role,    
+        username: user.username,
+        email: user.email
+      },
+      process.env.JWT_SECRET, 
+      { expiresIn: '7d' }
+    );
+    
     return res.status(200).json({
       message: "Login successful",
-      user: {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-      },
+      token,
+      user: { id: user.id, username: user.username, email: user.email }
     });
+        
   } catch (error) {
     return res.status(500).json({
       message: "Error logging in",
@@ -175,6 +184,8 @@ const loginUser = async (req, res) => {
     });
   }
 };
+
+
 
 
 module.exports = { addUser, getAllUsers, getActiveUsers, getUserById , updateUser, deleteUser, loginUser};
