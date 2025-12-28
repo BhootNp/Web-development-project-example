@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
-const bscrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
+
 
 const addUser = async (req, res) => {
   try {
@@ -17,7 +18,7 @@ const addUser = async (req, res) => {
       });
     }
 
-    const hassed = await bscrypt.hash(password, 10);
+    const hassed = await bcrypt.hash(password, 10);
     console.log(hassed);
 
     const newUser = await User.create({
@@ -133,4 +134,47 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { addUser, getAllUsers, getActiveUsers, getUserById , updateUser, deleteUser};
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "Email and password are required",
+      });
+    }
+
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return res.status(401).json({
+        message: "Invalid email or password",
+      });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(401).json({
+        message: "Invalid email or password",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Login successful",
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error logging in",
+      error: error.message,
+    });
+  }
+};
+
+
+module.exports = { addUser, getAllUsers, getActiveUsers, getUserById , updateUser, deleteUser, loginUser};
