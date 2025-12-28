@@ -4,7 +4,7 @@ const home = () => {
     // Home page component js block
   return (
     <div>
-       Home page
+       dasdasdas
     </div>
   )
 }
