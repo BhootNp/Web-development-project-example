@@ -68,13 +68,13 @@ const Register = () => {
       }
       const response = await createUserApi(dataToSubmit); 
       if (response.data.success) {
-        toast.success("Registration successful!");
-        // setFormData({
-        //   username: "",
-        //   email: "",
-        //   password: "",
-        //   confirmPassword: ""
-        // });
+        toast.success(response?.data?.message || 'Registration successful');
+        setFormData({
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: ""
+        });
       }
       else {
         toast.error('something went wrong');
