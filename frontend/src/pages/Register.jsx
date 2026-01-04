@@ -1,5 +1,6 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { createUserApi } from "../services/api";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -60,15 +61,24 @@ const Register = () => {
     if (!validate()) return;
 
     try {
-
-      toast.success("Registration successful");
-
-      setFormData({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: ""
-      });
+      const dataToSubmit = {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password
+      }
+      const response = await createUserApi(dataToSubmit); 
+      if (response.data.success) {
+        toast.success("Registration successful!");
+        // setFormData({
+        //   username: "",
+        //   email: "",
+        //   password: "",
+        //   confirmPassword: ""
+        // });
+      }
+      else {
+        toast.error('something went wrong');
+      }
 
     } catch (error) {
       toast.error("Server error. Try again later.");

@@ -2,6 +2,11 @@ const express = require('express');
 require('dotenv').config();
 const app = express();
 const {connectDB, sequelize} = require('./database/database');
+const cors = require('cors');
+app.use(cors({
+    origin: 'http://localhost:5173', // Adjust this to your frontend URL
+    credentials: true,
+}));
 
 
 app.use(express.json());

@@ -8,6 +8,7 @@ const addUser = async (req, res) => {
     if (!username || !email || !password) {
       return res.status(400).json({
         message: "All fields are required",
+        success: false,
       });
     }
     const isUser = await User.findOne({ where: { username } });
@@ -15,6 +16,7 @@ const addUser = async (req, res) => {
     if (isUser || isemail) {
       return res.status(400).json({
         message: "User already exists",
+        success: false,
       });
     }
 
@@ -28,6 +30,7 @@ const addUser = async (req, res) => {
     });
 
     res.status(201).json({
+      success: true,
       message: "User added successfully",
       user: newUser,
     });
