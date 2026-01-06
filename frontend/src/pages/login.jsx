@@ -7,13 +7,13 @@ import { loginUserApi } from "../services/api";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -38,14 +38,29 @@ const Login = () => {
 
     try {
       const response = await loginUserApi(formData);
-      if(response?.data?.success){
+      if (!response?.data?.success) {
         return toast.error(response?.data?.message);
-      }
+      }      
+      
+      localStorage.setItem("token", response?.data?.token);
+
       toast.success(response?.data?.message);
+
+      let decoded;
+      try {
+        decoded = jwtDecode(response?.data?.token);
+      } catch (err) {
+        console.error("Failed to decode JWT:", err);
+        toast.error("Invalid token received");
+        return;
+      }
+      if (decoded.role === "admin") {
+        window.location.href = "/admindash";
+      } else {
+        window.location.href = "/userdash";
+      }
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Login failed"
-      );
+      toast.error(error.response?.data?.message || "Login failed");
     }
   };
 
@@ -86,19 +101,19 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "#0f172a"
+    background: "#0f172a",
   },
   form: {
     width: "350px",
     padding: "30px",
     borderRadius: "12px",
     background: "#020617",
-    boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
+    boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
   },
   title: {
     color: "#e5e7eb",
     textAlign: "center",
-    marginBottom: "20px"
+    marginBottom: "20px",
   },
   input: {
     width: "100%",
@@ -108,7 +123,7 @@ const styles = {
     border: "1px solid #334155",
     background: "#020617",
     color: "#e5e7eb",
-    outline: "none"
+    outline: "none",
   },
   button: {
     width: "100%",
@@ -118,8 +133,8 @@ const styles = {
     background: "#38bdf8",
     color: "#020617",
     fontWeight: "bold",
-    cursor: "pointer"
-  }
+    cursor: "pointer",
+  },
 };
 
 export default Login;
