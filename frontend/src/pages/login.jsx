@@ -43,6 +43,7 @@ const Login = () => {
       }      
       
       localStorage.setItem("token", response?.data?.token);
+      localStorage.setItem("userId", decoded.id);
 
       toast.success(response?.data?.message);
 
