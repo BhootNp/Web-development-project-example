@@ -5,6 +5,8 @@ import Login from "./pages/login";
 import { Toaster } from "react-hot-toast";
 import EditUser from "./pages/edituser";
 import Dashboard from "./pages/Dasboard";
+import Headers from './pages/components/Headers';
+import Footers from './pages/components/Footers';
 
 function App() {
   return (

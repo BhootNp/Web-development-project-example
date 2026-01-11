@@ -3,6 +3,7 @@ const multer = require('multer');
 const upload = multer();
 
 const {addUser,getActiveUsers,getAllUsers,getUserById, updateUser, deleteUser, loginUser} = require('../controllers/userController');
+const authGuard = require('../helpers/authguagrd');
 
 express.post('/register',upload.none(), addUser);
 express.get('/all', getAllUsers);
