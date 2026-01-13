@@ -18,13 +18,13 @@ const Api = axios.create({
 
 const config = {
     headers: { 
-        'authorization' : 'Bearer ${localStorage.getItem("token-37c")}'
+        'authorization': `Bearer ${localStorage.getItem("token-37c")}`
     }
-}
+};
 
 export const createUserApi = (data) => ApiFormData.post('/api/user/register', data);
 export const loginUserApi = (data) => Api.post('/api/user/login', data);
-export const getUserByIdApi = (id) =>Api.get(`/api/user/id/${id}`);
-export const deleteUserApi = (id) => Api.delete(`/api/user/delete/${id}`, config);
-export const updateUserApi = (id, data) =>Api.put(`/api/user/update/${id}`, data);
-export const getAllUsersApi = () => Api.get('/api/user/all', config);
+export const getUserByIdApi = (id) => Api.get(`/api/user/id/${id}`);
+export const deleteUserApi = (id) => Api.delete(`/api/user/delete/${id}`);
+export const updateUserApi = (id, data) => Api.put(`/api/user/update/${id}`, data);
+export const getAllUsersApi = () => Api.get('/api/user/all');

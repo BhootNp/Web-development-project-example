@@ -5,7 +5,7 @@ const upload = multer();
 const {addUser,getActiveUsers,getAllUsers,getUserById, updateUser, deleteUser, loginUser} = require('../controllers/userController');
 const authGuard = require('../helpers/authguagrd');
 
-express.post('/register',upload.none(), addUser);
+express.post('/register',upload.none(), authGuard, addUser);
 express.get('/all', getAllUsers);
 express.get('/getactiveusers', getActiveUsers);
 express.get('/id/:id', getUserById);
