@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getUserByIdApi, updateUserApi } from '../services/api';
+import { getUserById, updateUserById } from '../services/api';
 import toast from 'react-hot-toast';
- 
+
 const EditUser = () => {
   const { id } = useParams();
   const [formData, setFormData] = useState({ username: '', email: '' });
- 
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await getUserByIdApi(id);
+        const res = await getUserById(id);
         setFormData(res?.data?.user);
       } catch (err) {
         toast.error("Failed to fetch user.");
@@ -18,15 +18,15 @@ const EditUser = () => {
     };
     fetchUser();
   }, [id]);
- 
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await updateUserApi(id, formData);
+      const response = await updateUserById(id, formData);
       if (response?.data?.success) {
         return toast.success(response?.data?.message);
       }
@@ -37,7 +37,7 @@ const EditUser = () => {
       toast.error(err?.response?.data?.message);
     }
   };
- 
+
   return (
     <form >
       <h2>Edit User</h2>
@@ -63,6 +63,5 @@ const EditUser = () => {
     </form>
   );
 };
- 
+
 export default EditUser;
- 

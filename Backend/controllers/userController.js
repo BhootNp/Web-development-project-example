@@ -191,4 +191,6 @@ const loginUser = async (req, res) => {
 
 
 
+
+
 module.exports = { addUser, getAllUsers, getActiveUsers, getUserById , updateUser, deleteUser, loginUser};
